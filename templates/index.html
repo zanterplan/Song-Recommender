@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song Recommender</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎵 Song Recommender</h1>
+            <p>Discover songs you'll love based on your favorite track!</p>
+        </header>
+
+        <div>
+            <div class="top-section">
+                <!-- Left Section -->
+                <div class="left-section">
+                    <form id="song-form" autocomplete="off">
+                        <h3>Recommend songs</h3>
+                        <div class="input">
+                            <input type="text" id="song_name" placeholder="Enter a song title">
+                            <ul id="suggestions-dropdown" class="dropdown-suggestions-list"></ul> <!-- Suggestions List -->
+                        </div>
+                        <div class="form-group">
+                            <label for="top_n">#</label>
+                            <input type="number" id="top_n" min="1" max="20" value="8" required>
+                            <button id="recommendation-button" type="submit">Get Recommendations</button>
+                        </div>
+
+                        <div class="form-group" style="text-align: center; margin-top: 30px; margin-right: 35px;">
+                            <p>Recommendation Method:</p>
+                            <label class="radio-label">
+                                <input type="radio" name="recommendation-method" value="simple" checked> 
+                                <span>Simple</span>
+                            </label>
+                            <label class="radio-label" style="margin-left: 15px;">
+                                <input type="radio" name="recommendation-method" value="advanced">
+                                <span>Advanced</span>
+                            </label>
+                            <label class="radio-label" style="margin-left: 15px;">
+                                <input type="radio" name="recommendation-method" value="annoy">
+                                <span>Annoy</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group" style="text-align: center; margin-top: 15px; margin-right: 35px;">
+                            <label class="radio-label">
+                                <input type="checkbox" name="random-method"> 
+                                <span>Random factor</span>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+        
+                <!-- Middle Section -->
+                <div class="middle-section">
+                    <h2>OR</h2>
+                </div>
+        
+                <!-- Right Section -->
+                <div class="right-section">
+                    <h3>Analyze and add your own song</h3>
+                    <p style="font-size: 0.7rem; margin-top: -15px; margin-bottom: 30px">&#40;Note that it may take a minute&#41;</p>
+                    <p>Song should be in a format: Title - Artist.</p>
+                    <p>Accepted file formats: .mp3, .wav, .flac.</p>
+                    <form id="upload-audio-form" enctype="multipart/form-data">
+                        <input type="file" id="audio-file" accept="audio/*" />
+                        <button type="submit" id="add-song-button">Upload</button>
+                    </form>
+                </div>
+            </div>
+        </div>        
+
+        <div class="filters-section">
+            <button id="filters-button" class="filters-button">Filters ▼</button>
+            <div id="filters-container" class="filters-container">
+                <label for="genre-input">Genre:</label>
+                <div class="genre-input-container">
+                    <input id="genre-input" placeholder="Select a genre" autocomplete="off">
+                    <ul id="genre-dropdown" class="dropdown-suggestions-list"></ul>
+                </div>
+
+                <div class="valence-filter">
+                    <label for="valence-slider">Happiness:</label>
+                    <input type="range" id="valence-slider" class="slider" min="0" max="100" value="50">
+                    <span id="valence-value" class="slider-value">50</span>
+                </div>
+                <div class="valence-filter">
+                    <label for="popularity-slider">Popularity:</label>
+                    <input type="range" id="popularity-slider" class="slider" min="0" max="100" value="50">
+                    <span id="popularity-value" class="slider-value">50</span>
+                </div>
+                <div class="valence-filter">
+                    <label for="energy-slider">Energy:</label>
+                    <input type="range" id="energy-slider" class="slider" min="0" max="100" value="50">
+                    <span id="energy-value" class="slider-value">50</span>
+                </div>
+                <div class="valence-filter">
+                    <label for="danceability-slider">Danceability:</label>
+                    <input type="range" id="danceability-slider" class="slider" min="0" max="100" value="50">
+                    <span id="danceability-value" class="slider-value">50</span>
+                </div>
+                <div class="valence-filter">
+                    <label for="loudness-slider">Loudness:</label>
+                    <input type="range" id="loudness-slider" class="slider" min="0" max="100" value="50">
+                    <span id="loudness-value" class="slider-value">50</span>
+                </div>
+            </div>
+
+            <div class="filter-info" id="filter-info" style="display: none">
+                <span class="filter-info-text">What do these filters mean?</span>
+                <div id="tooltip" class="tooltip">
+                    <p><strong>Happiness:</strong> How positive a track feels. High valence means happy, cheerful tracks. Low valence means sad or angry.</p>
+                    <p><strong>Popularity:</strong> The track's popularity. Higher value means more popular tracks.</p>
+                    <p><strong>Energy:</strong> Tracks with higher energy feel more upbeat and dynamic.</p>
+                    <p><strong>Danceability:</strong> How suitable the track is for dancing. Higher value means more danceable.</p>
+                    <p><strong>Loudness:</strong> The perceived loudness of the track. Higher value means louder tracks.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr style="margin-top: 50px; margin-bottom: 40px;">
+
+        <div id="results">
+            <h2>Recommended Songs</h2>
+            <p id="recommendation-info"></p>
+            <div id="recommendations-list"></div>
+        </div>
+    </div>
+    <script src="static/app.js"></script>
+</body>
+</html>
